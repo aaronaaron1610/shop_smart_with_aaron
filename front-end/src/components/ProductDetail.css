@@ -1,0 +1,99 @@
+.bought-last-month {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 0 10px 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #495057; /* Dark gray text color */
+  display: inline-block; /* Make it a block element with padding */
+  margin-bottom: 10px; /* Ensure a small gap between this and the next element */
+}
+
+.product-price,
+.product-rating,
+.bought-last-month {
+  margin-bottom: 10px; /* Ensure consistent spacing between elements */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.card-body .btn {
+  margin-top: auto;
+}
+
+/* ProductDetail.css */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #000; /* Change arrow color */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 50px;
+  background-color: #000; /* Change arrow color */
+  mask-size: 50px 50px;
+  mask-repeat: no-repeat;
+}
+
+.carousel-control-prev-icon::before {
+  mask-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" fill="%23FFF" viewBox="0 0 8 8"%3e%3cpath d="M4.354 0L3.646.354l-3 3 .708.708 3-3L4.354 0zm0 7.646l-3-3-.708.708 3 3 .708-.708z" /%3e%3c/svg%3e');
+}
+
+.carousel-control-next-icon::before {
+  mask-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" fill="%23FFF" viewBox="0 0 8 8"%3e%3cpath d="M4 0l-.354.354 3 3 .708-.708-3-3L4 0zm0 7.646l.354-.354-3-3-.708.708 3 3 .354-.354z" /%3e%3c/svg%3e');
+}
+
+.carousel-item img {
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item.active img {
+  transform: scale(0.9); /* Scale the image when active */
+}
+
+.react-player {
+  margin-top: 20px;
+  max-width: 100%;
+  height: auto;
+}
+
+.card {
+  height: auto;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: flex-start;
+}
+
+.product-price,
+.product-rating,
+.bought-last-month {
+  margin-bottom: 10px; /* Ensure consistent spacing between elements */
+}
+
+.bought-last-month {
+  background-color: #f8f9fa; /* Light gray background */
+  padding: 0 10px 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #495057; /* Dark gray text color */
+  display: inline-block; /* Make it a block element with padding */
+  margin-bottom: 10px; /* Ensure a small gap between this and the next element */
+}
+
+.card-body .btn {
+  margin-top: 10px;
+}
