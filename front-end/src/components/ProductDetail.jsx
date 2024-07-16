@@ -44,6 +44,10 @@ const ProductDetail = () => {
     fetchProduct();
   }, [productId]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -185,6 +189,7 @@ const ProductDetail = () => {
                     key !== "currentPrice" &&
                     key !== "returnPolicy" &&
                     key !== "warranty" &&
+                    key !== "category" &&
                     key !== "urls" &&
                     key !== "advantages" &&
                     key !== "whyBetter" &&

@@ -1,6 +1,6 @@
 // src/services/ApiServices.js
 
-const apiBaseUrl = "http://localhost:3200";
+const apiBaseUrl = "https://shop-smart-with-aaron.onrender.com";
 
 export const getAllProducts = async () => {
   try {
