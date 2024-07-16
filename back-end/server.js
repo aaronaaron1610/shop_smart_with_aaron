@@ -45,7 +45,11 @@ server.listen(port, () => {
 
   // Get your endpoint online
   ngrok
-    .connect({ addr: port, authtoken: process.env.NGROK_AUTHTOKEN })
+    .connect({
+      addr: port,
+      authtoken: process.env.NGROK_AUTHTOKEN,
+      host_header: "localhost:3200",
+    })
     .then((listener) =>
       console.log(`Ingress established at: ${listener.url()}`)
     )
