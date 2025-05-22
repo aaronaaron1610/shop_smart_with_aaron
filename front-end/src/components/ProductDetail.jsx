@@ -315,19 +315,21 @@ const ProductDetail = () => {
                   href={product.urls.amazon}
                   target="_blank"
                 >
-                  Buy on Amazon <span> at {product.prices?.amazon}</span>
+                  Buy on Amazon
+                  {/* <span> at {product.prices?.amazon}</span> */}
                 </Button>
               )}
-              {product.urls.flipkart && (
+              {/* {product.urls.flipkart && (
                 <Button
                   variant="primary"
                   className="w-100"
                   href={product.urls.flipkart}
                   target="_blank"
                 >
-                  Buy on Flipkart <span> at {product.prices?.flipkart}</span>
+                  Buy on Flipkart
+                  <span> at {product.prices?.flipkart}</span>
                 </Button>
-              )}
+              )} */}
               {/* {product.urls.youtube && (
                 <div className="mt-4">
                   <ReactPlayer

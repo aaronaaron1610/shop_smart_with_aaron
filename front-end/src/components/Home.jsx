@@ -27,7 +27,7 @@ const Home = ({ products }) => {
   const productsPerPage = 4;
 
   // const categories = ["Beauty", "Health", "Medicine", "Electronics"];
-  const categories = ["Health", "Beauty"];
+  const categories = ["Kitchen", "Beauty"];
 
   const handleSearch = () => {
     const filtered = products.filter((product) =>
@@ -51,6 +51,48 @@ const Home = ({ products }) => {
   useEffect(() => {
     handleSearch();
   }, [searchQuery]);
+
+  const websiteLink = "https://sswa-store.web.app/";
+  const [showPopup, setShowPopup] = useState(false);
+  const isInstagramBrowser = /Instagram/i.test(navigator.userAgent);
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  useEffect(() => {
+    if (isInstagramBrowser) {
+      setShowPopup(true);
+    }
+  }, []);
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const openInChrome = () => {
+    if (isAndroid) {
+      window.location.href = `intent://${websiteLink.replace(
+        "https://",
+        ""
+      )}#Intent;scheme=https;package=com.android.chrome;end;`;
+    }
+  };
+
+  const copyLink = () => {
+    const link = "https://sswa-store.web.app/"; // Set your custom link
+
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        document.getElementById("customPopup").style.display = "block";
+      })
+      .catch((err) => {
+        console.error("Failed to copy link", err);
+      });
+  };
+
+  const closePopup = () => {
+    document.getElementById("customPopup").style.display = "none";
+  };
 
   return (
     <div>
@@ -110,14 +152,14 @@ const Home = ({ products }) => {
                     className="mb-4"
                   >
                     <Card>
-                      <Link to={`/product/${product.product_id}`}>
-                        <Card.Img
-                          variant="top"
-                          src={product.images}
-                          alt={product.name}
-                          className="img-fluid"
-                        />
-                      </Link>
+                      {/* <Link to={`/product/${product.product_id}`}> */}
+                      <Card.Img
+                        variant="top"
+                        src={product.images}
+                        alt={product.name}
+                        className="img-fluid"
+                      />
+                      {/* </Link> */}
                       <Card.Body>
                         <Card.Title>{product.name}</Card.Title>
                         <div className="product-price">
@@ -130,7 +172,7 @@ const Home = ({ products }) => {
                             {product.currentPrice}
                           </span>
                         </div>
-                        <div className="product-rating">
+                        {/* <div className="product-rating">
                           <span className="stars">
                             {Array(Math.floor(product.rating))
                               .fill("⭐")
@@ -142,14 +184,14 @@ const Home = ({ products }) => {
                           <span className="rating-count">
                             ({product.ratingCount})
                           </span>
-                        </div>
+                        </div> */}
                         <div className="bought-last-month">
                           <span>
                             {product.boughtLastMonth}+ people bought this last
                             month
                           </span>
                         </div>
-                        <Button
+                        {/* <Button
                           variant="success"
                           as={Link}
                           to={`/product/${product.product_id}`}
@@ -157,6 +199,44 @@ const Home = ({ products }) => {
                           style={{ fontSize: "1.2rem", padding: "10px 20%" }}
                         >
                           View Details
+                        </Button> */}
+                        <button
+                          style={{
+                            backgroundColor: "#ff9900",
+                            color: "white",
+                            fontSize: "1rem",
+                            padding: "10px 20px",
+                            border: "none",
+                            borderRadius: "5px",
+                            cursor: "pointer",
+                            fontWeight: "bold",
+                          }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (isInstagramBrowser) {
+                              setShowPopup(true);
+                            } else {
+                              window.open(product.urls.amazon, "_blank");
+                            }
+                          }}
+                        >
+                          Buy on Amazon
+                        </button>
+
+                        <Button
+                          variant="primary"
+                          className="mt-2"
+                          style={{ fontSize: "1rem", padding: "8px 15px" }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (isInstagramBrowser) {
+                              setShowPopup(true);
+                            } else {
+                              window.open(product.urls.flipkart, "_blank");
+                            }
+                          }}
+                        >
+                          Buy on Flipkart
                         </Button>
                       </Card.Body>
                     </Card>
@@ -204,6 +284,177 @@ const Home = ({ products }) => {
           </Row>
         </Container>
       </footer>
+      {/* Custom Popup */}
+      {showPopup && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.6)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#fff",
+              padding: "20px",
+              borderRadius: "10px",
+              textAlign: "center",
+              width: "90%",
+              maxWidth: "350px",
+              boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
+            }}
+          >
+            <h2 style={{ color: "#333", marginBottom: "10px" }}>
+              ⚠ Open in Browser
+            </h2>
+
+            {isAndroid && (
+              <>
+                <button
+                  onClick={openInChrome}
+                  style={{
+                    marginTop: "15px",
+                    padding: "10px 15px",
+                    border: "none",
+                    backgroundColor: "#34A853",
+                    color: "white",
+                    borderRadius: "5px",
+                    fontSize: "16px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    marginBottom: "10px",
+                    display: "block",
+                    width: "100%", // Ensures full width for alignment
+                  }}
+                >
+                  Open in Chrome
+                </button>
+                <button
+                  onClick={copyLink}
+                  style={{
+                    padding: "10px 15px",
+                    border: "none",
+                    backgroundColor: "#007BFF",
+                    color: "white",
+                    borderRadius: "5px",
+                    fontSize: "16px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    marginTop: "10px", // Added marginTop to create space between buttons
+                    marginBottom: "5px",
+                    display: "block",
+                    width: "100%",
+                  }}
+                >
+                  Copy Link
+                </button>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    color: "#555",
+                    textAlign: "center",
+                  }}
+                >
+                  Paste the copied link in your browser.
+                </p>
+              </>
+            )}
+
+            {isIOS && (
+              <>
+                <button
+                  onClick={copyLink}
+                  style={{
+                    marginTop: "15px",
+                    padding: "10px 15px",
+                    border: "none",
+                    backgroundColor: "#007BFF",
+                    color: "white",
+                    borderRadius: "5px",
+                    fontSize: "16px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Copy Link
+                </button>
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: "#555",
+                    marginTop: "5px",
+                    textAlign: "center",
+                  }}
+                >
+                  Paste the copied link in your browser.
+                </p>
+              </>
+            )}
+
+            {/* <button
+              onClick={handleClosePopup}
+              style={{
+                marginTop: "15px",
+                padding: "10px 15px",
+                border: "none",
+                backgroundColor: "#888",
+                color: "white",
+                borderRadius: "5px",
+                fontSize: "16px",
+                cursor: "pointer",
+                fontWeight: "bold",
+                marginLeft: "10px",
+              }}
+            >
+              Cancel
+            </button> */}
+          </div>
+        </div>
+      )}
+
+      <div
+        id="customPopup"
+        style={{
+          display: "none",
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          backgroundColor: "white",
+          padding: "20px",
+          borderRadius: "10px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          textAlign: "center",
+          zIndex: 1000,
+        }}
+      >
+        <p style={{ fontSize: "16px", fontWeight: "bold", color: "#333" }}>
+          Link copied! Paste it in your browser.
+        </p>
+        <button
+          onClick={closePopup}
+          style={{
+            marginTop: "10px",
+            padding: "8px 12px",
+            border: "none",
+            backgroundColor: "#007BFF",
+            color: "white",
+            borderRadius: "5px",
+            fontSize: "14px",
+            cursor: "pointer",
+            fontWeight: "bold",
+          }}
+        >
+          OK
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,33 +1,37 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import ProductDetail from "./components/ProductDetail";
-// import CategoryPage from './components/CategoryPage';
-import { getAllProducts } from "./services/ApiServices";
+
+// Import local product data
+import productsData from "./services/data";
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [products] = useState(productsData);
 
+  // Function to clear cookies and cache
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const productsData = await getAllProducts();
-        setProducts(productsData);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
+    // Clear cookies
+    document.cookie.split(";").forEach((cookie) => {
+      document.cookie = cookie
+        .replace(/^ +/, "")
+        .replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`);
+    });
 
-    fetchProducts();
+    // Clear localStorage and sessionStorage
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Attempt to clear cache
+    if ("caches" in window) {
+      caches.keys().then((names) => {
+        names.forEach((name) => caches.delete(name));
+      });
+    }
+
+    console.log("Cookies, cache, and storage cleared!");
   }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
 
   return (
     <Router>
@@ -37,7 +41,6 @@ function App() {
           path="/product/:productId"
           element={<ProductDetail products={products} />}
         />
-        {/* <Route path="/category/:categoryName" element={<CategoryPage products={products} />} /> */}
       </Routes>
     </Router>
   );
