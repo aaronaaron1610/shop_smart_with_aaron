@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
@@ -17,7 +17,6 @@ import {
   faInstagram,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import ReactPlayer from "react-player";
 import logo from "../assets/Shop-Smart-With-Aaron.png";
 import { getProductById } from "../services/ApiServices";
 import "./ProductDetail.css"; // Import the CSS file
@@ -242,7 +241,7 @@ const ProductDetail = () => {
                 </ul>
                 <hr />
                 <h4 className="text-primary">
-                  Why It's Better Than Other Products
+                  Why It&apos;s Better Than Other Products
                 </h4>
                 <ul>
                   {product.whyBetter.map((reason, index) => (
@@ -271,7 +270,7 @@ const ProductDetail = () => {
                   ))}
                 </ul>
                 <hr />
-                <h4 className="text-primary">What's in the Box</h4>
+                <h4 className="text-primary">What&apos;s in the Box</h4>
                 <ul>
                   {product.includedComponents.map((component, index) => (
                     <li key={index} style={{ textAlign: "left" }}>

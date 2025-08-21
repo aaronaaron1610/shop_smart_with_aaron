@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Card,
@@ -11,12 +11,12 @@ import {
   Container,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 import {
   faFacebook,
   faInstagram,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import PropTypes from 'prop-types';
 import logo from "../assets/Shop-Smart-With-Aaron.png";
 import "./Home.css";
 
@@ -29,15 +29,15 @@ const Home = ({ products }) => {
   // const categories = ["Beauty", "Health", "Medicine", "Electronics"];
   const categories = ["Kitchen", "Beauty"];
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(() => {
     const filtered = products.filter((product) =>
       product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredProducts(filtered);
     setCurrentPage(1);
-  };
+  }, [products, searchQuery]);
 
-  const handleShowMore = (category) => {
+  const handleShowMore = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
@@ -50,7 +50,7 @@ const Home = ({ products }) => {
 
   useEffect(() => {
     handleSearch();
-  }, [searchQuery]);
+  }, [handleSearch]);
 
   const websiteLink = "https://sswa-store.web.app/";
   const [showPopup, setShowPopup] = useState(false);
@@ -62,11 +62,7 @@ const Home = ({ products }) => {
     if (isInstagramBrowser) {
       setShowPopup(true);
     }
-  }, []);
-
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
+  }, [isInstagramBrowser]);
 
   const openInChrome = () => {
     if (isAndroid) {
@@ -457,6 +453,20 @@ const Home = ({ products }) => {
       </div>
     </div>
   );
+};
+
+Home.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({
+    product_id: PropTypes.string,
+    name: PropTypes.string,
+    images: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    category: PropTypes.string,
+    currentPrice: PropTypes.string,
+    discountPercentage: PropTypes.number,
+    rating: PropTypes.number,
+    ratingCount: PropTypes.number,
+    boughtLastMonth: PropTypes.number
+  })).isRequired
 };
 
 export default Home;
