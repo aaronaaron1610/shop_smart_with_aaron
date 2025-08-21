@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Row, Col, Container, Pagination, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 // import './CategoryPage.css';
 
 const CategoryPage = ({ products }) => {
@@ -81,6 +82,21 @@ const CategoryPage = ({ products }) => {
       )}
     </Container>
   );
+};
+
+CategoryPage.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    product_id: PropTypes.string,
+    name: PropTypes.string,
+    images: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    category: PropTypes.string,
+    currentPrice: PropTypes.string,
+    discountPercentage: PropTypes.number,
+    rating: PropTypes.number,
+    ratingCount: PropTypes.number,
+    boughtLastMonth: PropTypes.number
+  })).isRequired
 };
 
 export default CategoryPage;
